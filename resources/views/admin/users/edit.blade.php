@@ -7,7 +7,7 @@
             {!! 
                 form($form->add('edit', 'submit', [
                     'attr' => ['class' => 'btn btn-primary btn-block'],
-                    'label' => 'Edit'
+                    'label' => Icon::create('refresh').'&nbsp;&nbsp;Edit'
                 ])) 
             !!}
         </div>
