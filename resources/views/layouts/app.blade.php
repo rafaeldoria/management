@@ -29,7 +29,7 @@
                                 'link' => route('logout'),
                                 'title' => 'Logout',
                                 'linkAttributes' => [
-                                    'onclick' => "event.preventDefault();documento.getElementById(\"form-logout\").submit();"
+                                    'onclick' => "event.preventDefault();document.getElementById(\"form-logout\").submit();"
                                 ]
                             ]
                         ]
@@ -47,8 +47,16 @@
             }
         @endphp
         {!! $navbar !!}
-        {!! form($formLogout)!!}
-
+        
+        @if(Auth::check())
+            {!! form($formLogout) !!}
+        @endif
+        
+        @if(Session::has('success'))
+            <div class="container">
+                {!! Alert::success(Session::get('success'))->close() !!}
+            </div>
+        @endif
         @yield('content')
     </div>
 

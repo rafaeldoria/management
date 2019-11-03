@@ -232,6 +232,7 @@ return [
         'Icon' => Bootstrapper\Facades\Icon::class,
         'Navbar' => Bootstrapper\Facades\Navbar::class,
         'Navigation' => Bootstrapper\Facades\navigation::class,
+        'Alert' => Bootstrapper\Facades\alert::class,
     ],
 
 ];
