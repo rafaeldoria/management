@@ -231,8 +231,9 @@ return [
         'Button' => Bootstrapper\Facades\Button::class,
         'Icon' => Bootstrapper\Facades\Icon::class,
         'Navbar' => Bootstrapper\Facades\Navbar::class,
-        'Navigation' => Bootstrapper\Facades\navigation::class,
-        'Alert' => Bootstrapper\Facades\alert::class,
+        'Navigation' => Bootstrapper\Facades\Navigation::class,
+        'Alert' => Bootstrapper\Facades\Alert::class,
+        'Badge' => Bootstrapper\Facades\Badge::class,
     ],
 
 ];

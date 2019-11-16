@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\UserCreated;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Bootstrapper\Interfaces\TableInterface;
@@ -38,7 +39,13 @@ class User extends Authenticatable implements TableInterface
         $user = parent::create($data+['enrolment' => str_random(6)]);
         self::assingEnrolment($user, self::ROLE_ADMIN);
         $user->save();
-        return $user;
+
+        if(isset($data['send_mail'])){
+            $token = \Password::broker()->createToken($user);
+            $user->notify(new UserCreated($token));
+        }
+
+        return compact('user', 'password');
     }
 
     public static function assingEnrolment(User $user, $type)
