@@ -32,12 +32,18 @@ class User extends Authenticatable implements TableInterface
         'password', 'remember_token',
     ];
 
+    public function userable()
+    {
+        return $this->morphTo();
+    }
+
     public static function createFully($data)
     {
         $password = str_random(6);
         $data['password'] = $password;
         $user = parent::create($data+['enrolment' => str_random(6)]);
         self::assingEnrolment($user, self::ROLE_ADMIN);
+        self::assingRole($user, $data['type']);
         $user->save();
 
         if(isset($data['send_mail'])){
@@ -57,6 +63,19 @@ class User extends Authenticatable implements TableInterface
         ];
         $user->enrolment = $types[$type] + $user->id;
         return $user->enrolment;
+    }
+
+    public static function assignRole(User $user, $type)
+    {
+        $types = [
+            User::ROLE_ADMIN => Admin::class,
+            User::ROLE_TEACHER => Teacher::class,
+            User::ROLE_STUDENT => Student::class
+        ];
+
+        $model = $types[$type];
+        $model = $model::create([]);
+        $user->userable()->associate($model);
     }
 
     public function getTableHeaders()
